@@ -7,8 +7,8 @@ from google.auth.transport.requests import Request
 # Konfiguraatio ympäristömuuttujista
 ALBUM_ID = os.environ.get('ALBUM_ID')
 BUCKET_NAME = os.environ.get('BUCKET_NAME')
-# Huom: OAuth-tokenit tulisi hakea turvallisesti, esim. Secret Managerista
-# Tässä esimerkissä oletetaan, että Refresh Token on saatavilla
+
+# Salaisuudet (tuodaan Secret Managerista ympäristömuuttujiksi Cloud Functionin asetuksissa)
 REFRESH_TOKEN = os.environ.get('REFRESH_TOKEN')
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')

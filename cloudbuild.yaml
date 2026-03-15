@@ -15,11 +15,10 @@ steps:
       - '--memory=512MB'         # Riittävästi muistia kuvien käsittelyyn ja välimuistiin
       
       # Ympäristömuuttujat välitetään Cloud Build -triggerin substituutioista:
-      - '--set-env-vars=ALBUM_ID=$_ALBUM_ID,BUCKET_NAME=$_BUCKET_NAME,CLIENT_ID=$_CLIENT_ID,CLIENT_SECRET=$_CLIENT_SECRET,REFRESH_TOKEN=$_REFRESH_TOKEN'
+      - '--set-env-vars=ALBUM_ID=$_ALBUM_ID,BUCKET_NAME=$_BUCKET_NAME'
       
-      # HUOM! Tuotannossa Secret Managerin käyttö on tietoturvallisempaa. 
-      # Jos konfiguroit salaisuudet Secret Manageriin, voit käyttää --set-secrets-lippua näin:
-      # - '--set-secrets=REFRESH_TOKEN=projects/$PROJECT_ID/secrets/REFRESH_TOKEN_NAME:latest,CLIENT_SECRET=projects/$PROJECT_ID/secrets/CLIENT_SECRET_NAME:latest'
+      # Salaisuudet haetaan Secret Managerista (funktiolla pitää olla lukuoikeus näihin):
+      - '--set-secrets=CLIENT_ID=projects/$PROJECT_ID/secrets/CLIENT_ID:latest,CLIENT_SECRET=projects/$PROJECT_ID/secrets/CLIENT_SECRET:latest,REFRESH_TOKEN=projects/$PROJECT_ID/secrets/REFRESH_TOKEN:latest'
 
 substitutions:
   _REGION: 'europe-north1' # Oletusalue (esim. Suomi/Hamina)
@@ -28,9 +27,6 @@ substitutions:
   # ja määrittää ne suoraan Google Cloud Build -triggerin "Substitution variables" -osiossa.
   # _ALBUM_ID: ''
   # _BUCKET_NAME: ''
-  # _CLIENT_ID: ''
-  # _CLIENT_SECRET: ''
-  # _REFRESH_TOKEN: ''
 
 options:
   logging: CLOUD_LOGGING_ONLY
